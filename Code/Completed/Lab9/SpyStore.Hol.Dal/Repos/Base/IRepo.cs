@@ -1,4 +1,16 @@
-﻿using System;
+﻿#region copyright
+
+// Copyright Information
+// ==================================
+// SpyStore.Hol - SpyStore.Hol.Dal - IRepo.cs
+// All samples copyright Philip Japikse
+// http://www.skimedic.com 2019/10/04
+// See License.txt for more information
+// ==================================
+
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;

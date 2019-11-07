@@ -1,4 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿#region copyright
+
+// Copyright Information
+// ==================================
+// SpyStore.Hol - SpyStore.Hol.Dal - ViewsHelper.cs
+// All samples copyright Philip Japikse
+// http://www.skimedic.com 2019/10/04
+// See License.txt for more information
+// ==================================
+
+#endregion
+
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SpyStore.Hol.Dal.EfStructures.MigrationHelpers
 {
@@ -35,6 +47,7 @@ FROM  Store.OrderDetails od INNER JOIN Store.Orders o ON o.Id = od.OrderId
 INNER JOIN Store.Products AS p ON od.ProductId = p.Id INNER JOIN
  Store.Categories AS c ON p.CategoryId = c.id");
         }
+
         public static void CreateCartRecordWithProductInfoView(MigrationBuilder builder)
         {
             builder.Sql(@"
@@ -60,6 +73,5 @@ FROM Store.ShoppingCartRecords scr
         {
             builder.Sql("drop view [Store].[CartRecordWithProductInfo]");
         }
-
     }
 }

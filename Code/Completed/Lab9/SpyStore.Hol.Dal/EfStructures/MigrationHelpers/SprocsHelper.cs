@@ -1,4 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿#region copyright
+
+// Copyright Information
+// ==================================
+// SpyStore.Hol - SpyStore.Hol.Dal - SprocsHelper.cs
+// All samples copyright Philip Japikse
+// http://www.skimedic.com 2019/10/04
+// See License.txt for more information
+// ==================================
+
+#endregion
+
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SpyStore.Hol.Dal.EfStructures.MigrationHelpers
 {
@@ -36,6 +48,5 @@ namespace SpyStore.Hol.Dal.EfStructures.MigrationHelpers
         {
             migrationBuilder.Sql("DROP PROCEDURE [Store].[PurchaseItemsInCart]");
         }
-
     }
 }

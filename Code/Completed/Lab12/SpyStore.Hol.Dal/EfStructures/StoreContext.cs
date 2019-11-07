@@ -1,5 +1,18 @@
-﻿using System;
+﻿#region copyright
+
+// Copyright Information
+// ==================================
+// SpyStore.Hol - SpyStore.Hol.Dal - StoreContext.cs
+// All samples copyright Philip Japikse
+// http://www.skimedic.com 2019/10/04
+// See License.txt for more information
+// ==================================
+
+#endregion
+
+using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SpyStore.Hol.Models.Entities;
 using SpyStore.Hol.Models.Entities.Base;
 using SpyStore.Hol.Models.ViewModels;
@@ -12,7 +25,20 @@ namespace SpyStore.Hol.Dal.EfStructures
 
         public StoreContext(DbContextOptions<StoreContext> options) : base(options)
         {
+            //this.ChangeTracker.StateChanged += ChangeTracker_StateChanged;
+            //this.ChangeTracker.Tracked+= ChangeTrackerOnTracked;
         }
+
+        private void ChangeTrackerOnTracked(object sender, EntityTrackedEventArgs e)
+        {
+            if (e.Entry.Entity is EntityBase)
+            {
+
+            }
+            //throw new NotImplementedException();
+        }
+
+        private void ChangeTracker_StateChanged(object sender, Microsoft.EntityFrameworkCore.ChangeTracking.EntityStateChangedEventArgs e) => throw new NotImplementedException();
 
         [DbFunction("GetOrderTotal", Schema = "Store")]
         public static int GetOrderTotal(int orderId)
@@ -20,8 +46,9 @@ namespace SpyStore.Hol.Dal.EfStructures
             //code in here doesn’t matter since it never gets executed
             throw new Exception();
         }
-        public DbQuery<CartRecordWithProductInfo> CartRecordWithProductInfos { get; set; }
-        public DbQuery<OrderDetailWithProductInfo> OrderDetailWithProductInfos { get; set; }
+
+        public DbSet<CartRecordWithProductInfo> CartRecordWithProductInfos { get; set; }
+        public DbSet<OrderDetailWithProductInfo> OrderDetailWithProductInfos { get; set; }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -32,8 +59,10 @@ namespace SpyStore.Hol.Dal.EfStructures
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Query<CartRecordWithProductInfo>().ToView("CartRecordWithProductInfo", "Store");
-            modelBuilder.Query<OrderDetailWithProductInfo>().ToView("OrderDetailWithProductInfo", "Store");
+            modelBuilder.Entity<CartRecordWithProductInfo>()
+                .ToView("CartRecordWithProductInfo", "Store").HasNoKey();
+            modelBuilder.Entity<OrderDetailWithProductInfo>()
+                .ToView("OrderDetailWithProductInfo", "Store").HasNoKey();
 
             modelBuilder.Entity<Customer>(entity =>
             {

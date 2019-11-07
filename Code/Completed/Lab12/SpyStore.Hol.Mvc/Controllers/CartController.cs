@@ -1,9 +1,22 @@
-﻿using System;
+﻿#region copyright
+
+// Copyright Information
+// ==================================
+// SpyStore.Hol - SpyStore.Hol.Mvc - CartController.cs
+// All samples copyright Philip Japikse
+// http://www.skimedic.com 2019/10/04
+// See License.txt for more information
+// ==================================
+
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SpyStore.Hol.Dal.Repos.Interfaces;
 using SpyStore.Hol.Models.Entities;
 using SpyStore.Hol.Models.Entities.Base;
@@ -17,10 +30,12 @@ namespace SpyStore.Hol.Mvc.Controllers
     //[Route("ShoppingCart/[action]")]
     public class CartController : BaseController
     {
+        private readonly ILogger<CartController> _logger;
         private readonly IShoppingCartRepo _shoppingCartRepo;
         readonly MapperConfiguration _config = null;
-        public CartController(IShoppingCartRepo shoppingCartRepo)
+        public CartController(ILogger<CartController> logger, IShoppingCartRepo shoppingCartRepo)
         {
+            _logger = logger;
             _shoppingCartRepo = shoppingCartRepo;
             _config = new MapperConfiguration(
                 cfg =>
@@ -109,6 +124,10 @@ namespace SpyStore.Hol.Mvc.Controllers
                 {
                     _shoppingCartRepo.Update(dbItem);
                     CartRecordWithProductInfo updatedItem = _shoppingCartRepo.GetShoppingCartRecord(dbItem.Id);
+                    if (updatedItem == null)
+                    {
+                        return new EmptyResult();
+                    }
                     CartRecordViewModel newItem = mapper.Map<CartRecordViewModel>(updatedItem);
                     return PartialView(newItem);
                 }

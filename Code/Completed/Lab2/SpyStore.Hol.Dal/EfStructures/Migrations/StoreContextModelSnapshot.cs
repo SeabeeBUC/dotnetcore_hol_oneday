@@ -15,7 +15,7 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -23,14 +23,17 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 
@@ -41,22 +44,27 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 
@@ -71,9 +79,11 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CustomerId");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
@@ -87,7 +97,8 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 
@@ -100,17 +111,22 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("OrderId");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("ProductId");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("Quantity");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<decimal>("UnitCost")
                         .HasColumnType("money");
@@ -128,23 +144,28 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("CurrentPrice")
                         .HasColumnType("money");
 
-                    b.Property<bool>("IsFeatured");
+                    b.Property<bool>("IsFeatured")
+                        .HasColumnType("bit");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<decimal>("UnitCost")
                         .HasColumnType("money");
 
-                    b.Property<int>("UnitsInStock");
+                    b.Property<int>("UnitsInStock")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -157,26 +178,32 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CustomerId");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<decimal>("LineItemTotal");
+                    b.Property<decimal>("LineItemTotal")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductId");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasDefaultValue(1);
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 
@@ -196,7 +223,8 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
                     b.HasOne("SpyStore.Hol.Models.Entities.Customer", "CustomerNavigation")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SpyStore.Hol.Models.Entities.OrderDetail", b =>
@@ -204,12 +232,14 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
                     b.HasOne("SpyStore.Hol.Models.Entities.Order", "OrderNavigation")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SpyStore.Hol.Models.Entities.Product", "ProductNavigation")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SpyStore.Hol.Models.Entities.Product", b =>
@@ -217,46 +247,52 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
                     b.HasOne("SpyStore.Hol.Models.Entities.Category", "CategoryNavigation")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsOne("SpyStore.Hol.Models.Entities.Base.ProductDetails", "Details", b1 =>
                         {
                             b1.Property<int>("ProductId")
                                 .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                             b1.Property<string>("Description")
                                 .HasColumnName("Description")
+                                .HasColumnType("nvarchar(3800)")
                                 .HasMaxLength(3800);
 
                             b1.Property<string>("ModelName")
                                 .HasColumnName("ModelName")
+                                .HasColumnType("nvarchar(50)")
                                 .HasMaxLength(50);
 
                             b1.Property<string>("ModelNumber")
                                 .HasColumnName("ModelNumber")
+                                .HasColumnType("nvarchar(50)")
                                 .HasMaxLength(50);
 
                             b1.Property<string>("ProductImage")
                                 .HasColumnName("ProductImage")
+                                .HasColumnType("nvarchar(150)")
                                 .HasMaxLength(150);
 
                             b1.Property<string>("ProductImageLarge")
                                 .HasColumnName("ProductImageLarge")
+                                .HasColumnType("nvarchar(150)")
                                 .HasMaxLength(150);
 
                             b1.Property<string>("ProductImageThumb")
                                 .HasColumnName("ProductImageThumb")
+                                .HasColumnType("nvarchar(150)")
                                 .HasMaxLength(150);
 
                             b1.HasKey("ProductId");
 
-                            b1.ToTable("Products","Store");
+                            b1.ToTable("Products");
 
-                            b1.HasOne("SpyStore.Hol.Models.Entities.Product")
-                                .WithOne("Details")
-                                .HasForeignKey("SpyStore.Hol.Models.Entities.Base.ProductDetails", "ProductId")
-                                .OnDelete(DeleteBehavior.Cascade);
+                            b1.WithOwner()
+                                .HasForeignKey("ProductId");
                         });
                 });
 
@@ -265,12 +301,14 @@ namespace SpyStore.Hol.Dal.EfStructures.Migrations
                     b.HasOne("SpyStore.Hol.Models.Entities.Customer", "CustomerNavigation")
                         .WithMany("ShoppingCartRecords")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SpyStore.Hol.Models.Entities.Product", "ProductNavigation")
                         .WithMany("ShoppingCartRecords")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

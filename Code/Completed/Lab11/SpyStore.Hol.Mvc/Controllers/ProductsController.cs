@@ -1,4 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿#region copyright
+
+// Copyright Information
+// ==================================
+// SpyStore.Hol - SpyStore.Hol.Mvc - ProductsController.cs
+// All samples copyright Philip Japikse
+// http://www.skimedic.com 2019/10/04
+// See License.txt for more information
+// ==================================
+
+#endregion
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SpyStore.Hol.Dal.Repos.Interfaces;
@@ -12,12 +24,15 @@ namespace SpyStore.Hol.Mvc.Controllers
     {
         private readonly IProductRepo _productRepo;
         private readonly CustomSettings _settings;
+        private readonly ILogger<ProductsController> _logger;
 
         public ProductsController(
+            ILogger<ProductsController> logger,
             IProductRepo productRepo,
-            IOptionsSnapshot<CustomSettings> settings)
+            IOptionsMonitor<CustomSettings> settings)
         {
-            _settings = settings.Value;
+            _settings = settings.CurrentValue;
+            _logger = logger;
             _productRepo = productRepo;
         }
         [HttpGet]

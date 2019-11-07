@@ -11,12 +11,15 @@ namespace SpyStore.Hol.Mvc.Controllers
     {
         private readonly IProductRepo _productRepo;
         private readonly CustomSettings _settings;
+        private readonly ILogger<ProductsController> _logger;
 
         public ProductsController(
+            ILogger<ProductsController> logger, 
             IProductRepo productRepo,
-            IOptionsSnapshot<CustomSettings> settings)
+            IOptionsMonitor<CustomSettings> settings)
         {
-            _settings = settings.Value;
+            _settings = settings.CurrentValue;
+            _logger = logger;
             _productRepo = productRepo;
         }
 

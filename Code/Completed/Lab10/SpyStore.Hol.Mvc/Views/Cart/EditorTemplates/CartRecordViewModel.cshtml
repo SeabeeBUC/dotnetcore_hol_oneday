@@ -1,8 +1,8 @@
-﻿@using Newtonsoft.Json
+﻿@using System.Text.Json
 @model CartRecordViewModel
 @{
     var formName = "updateCartForm" + Model.Id;
-    var ts = JsonConvert.SerializeObject(Model.TimeStamp).Replace("\"","");
+    var ts = JsonSerializer.Serialize(Model.TimeStamp).Replace("\"","");
 }
     <nocache>
         <form asp-controller="Cart" asp-action="Update" asp-route-id="@Model.Id" id="@formName" method="post">
